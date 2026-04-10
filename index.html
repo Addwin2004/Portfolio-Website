@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addwin Antony Stephen | Portfolio</title>
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="index.css">
+
+    <!-- Feather Icons for lightweight modern icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body>
+
+    <!-- Subtle scanning overlay line effect -->
+    <canvas id="matrix-bg"></canvas>
+    <div class="scanlines"></div>
+    <div class="cyber-grid-bg"></div>
+
+    <div class="container">
+
+        <div class="top-row">
+            <div class="top-content">
+                <header class="hero-section">
+                    <!-- Glitch effect container -->
+                    <h1 class="glitch" data-text="Addwin Antony Stephen">Addwin Antony Stephen</h1>
+                    <h2 class="subtitle">&lt;Cybersecurity Student /&gt;</h2>
+                    <a href="mailto:addwinstephen@gmail.com" class="email-text">
+                        <i data-feather="mail" style="width: 16px; height: 16px;"></i> addwinstephen@gmail.com
+                    </a>
+                </header>
+
+                <section class="about-section">
+                    <h3 class="section-title">About Me</h3>
+                    <p class="bio">
+                        Detail-oriented MCA – ISMS student with a strong foundation in software development and
+                        cybersecurity.
+                        Experienced in manual testing, vulnerability assessment, and full-stack development. Actively
+                        participates in CTF
+                        competitions to sharpen real-world offensive security skills, with a keen interest in ethical
+                        hacking and AI-powered
+                        security solutions.
+                    </p>
+
+                    <div class="links-container">
+                        <a href="https://www.linkedin.com/in/addwin-antony-stephen/" target="_blank"
+                            rel="noopener noreferrer" class="social-link" title="LinkedIn">
+                            <i data-feather="linkedin"></i>
+                        </a>
+                        <a href="https://github.com/Addwin2004" target="_blank" rel="noopener noreferrer"
+                            class="social-link" title="GitHub">
+                            <i data-feather="github"></i>
+                        </a>
+                        <a href="https://tryhackme.com/p/.zodiac." target="_blank" rel="noopener noreferrer"
+                            class="social-link" title="TryHackMe">
+                            <i data-feather="terminal"></i>
+                        </a>
+                    </div>
+
+                    <!-- Resume Download Button -->
+                    <a href="Resume_Internship.pdf" download="Addwin_Antony_Stephen_Resume.pdf" class="btn btn-primary">
+                        <i data-feather="download"></i> Download Resume
+                    </a>
+                </section>
+            </div>
+
+            <div class="hero-image-container scroll-reveal">
+                <img src="me.png" alt="Addwin Antony Stephen" class="hero-image">
+            </div>
+        </div>
+
+        <!-- New Resume Grid Additions -->
+        <section class="resume-grid">
+            <div class="resume-col">
+                <h3 class="section-title">Experience</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="date-badge">May 2025 - Jul 2025</div>
+                        <h4>Manual Testing Intern</h4>
+                        <p class="company">BeaverTech</p>
+                        <p class="desc">Performed manual testing on web applications, contributing to various tasks and
+                            projects. Identified and documented bugs, ensuring quality and reliability of software
+                            products.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="date-badge">Oct 2024</div>
+                        <h4>Cybersecurity Research Intern</h4>
+                        <p class="company">Ehackify Cybersecurity Research & Training</p>
+                        <p class="desc">Worked in the Research Department (ERTR Labs) on cybersecurity research tasks.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-col">
+                <h3 class="section-title">Education</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="date-badge">2025 - 2027</div>
+                        <h4>Master of Computer Applications (ISMS)</h4>
+                        <p class="company">Jain Deemed-to-be University, Bengaluru</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="date-badge">2022 - 2025</div>
+                        <h4>Bachelor of Computer Applications</h4>
+                        <p class="company">Rajagiri College of Management and Applied Sciences, Kakkanad</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills-section">
+            <h3 class="section-title">Arsenal & Skills</h3>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4><i data-feather="shield"></i> Security Tools</h4>
+                    <p>Nessus, Burp Suite, Nmap, Metasploit, Wireshark</p>
+                </div>
+                <div class="skill-category">
+                    <h4><i data-feather="code"></i> Languages</h4>
+                    <p>Python, Java, C, C++, PHP, HTML, CSS, JavaScript</p>
+                </div>
+                <div class="skill-category">
+                    <h4><i data-feather="box"></i> Frameworks</h4>
+                    <p>React.js, Node.js, Flask, BeautifulSoup4, OpenCV</p>
+                </div>
+                <div class="skill-category">
+                    <h4><i data-feather="database"></i> Databases</h4>
+                    <p>MySQL</p>
+                </div>
+                <div class="skill-category">
+                    <h4><i data-feather="cpu"></i> Other</h4>
+                    <p>OSINT, TCP/IP Networking, XAMPP</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects dynamically injected here -->
+        <main class="projects-section">
+            <h3 class="section-title">Projects</h3>
+            <div id="projects-grid" class="projects-grid">
+                <!-- Javascript will populate this grid -->
+                <div class="loading-state">
+                    Connecting to GitHub API<span class="loading-dots">...</span>
+                </div>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <p>Initiated by Addwin | Access Granted.</p>
+        </footer>
+
+    </div>
+
+    <!-- Main Logic Script -->
+    <script src="script.js"></script>
+    <script>
+        // Initialize feather icons
+        feather.replace();
+    </script>
+</body>
+
+</html>
