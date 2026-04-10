@@ -4,7 +4,8 @@ const excludedProjects = [
     'Memory - Matching - Game',
     'CAR-SHOWROOM-WEBSITE',
     'Addwin2004',
-    'SignUp-and-SignIn-CSS-Web-page'
+    'SignUp-and-SignIn-CSS-Web-page',
+    'Portfolio-Website'
 ];
 
 // Configuration
@@ -127,7 +128,7 @@ if (loadingDots) {
 function initMatrixRain() {
     const canvas = document.getElementById('matrix-bg');
     const ctx = canvas.getContext('2d');
-    
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
@@ -135,15 +136,15 @@ function initMatrixRain() {
     const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const nums = '0123456789';
     const alphabet = katakana + latin + nums;
-    
+
     const fontSize = 16;
     const columns = Math.floor(canvas.width / fontSize) + 1;
-    
+
     const drops = [];
-    for(let x = 0; x < columns; x++) {
+    for (let x = 0; x < columns; x++) {
         drops[x] = Math.random() * -100; // stagger initial start
     }
-    
+
     // Performance throttler for cinematic feel
     let lastDrawTime = 0;
     const fps = 30;
@@ -151,27 +152,27 @@ function initMatrixRain() {
 
     function draw(time) {
         requestAnimationFrame(draw);
-        
+
         const elapsed = time - lastDrawTime;
         if (elapsed < fpsInterval) return;
         lastDrawTime = time - (elapsed % fpsInterval);
 
         // Fade effect for trails
-        ctx.fillStyle = 'rgba(5, 5, 5, 0.15)'; 
+        ctx.fillStyle = 'rgba(5, 5, 5, 0.15)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
+
         ctx.font = fontSize + 'px "JetBrains Mono", monospace';
-        
-        for(let i = 0; i < drops.length; i++) {
+
+        for (let i = 0; i < drops.length; i++) {
             const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-            
+
             // Randomly flash white for the lead character
             ctx.fillStyle = Math.random() > 0.95 ? '#ffffff' : '#00ff41';
-            
+
             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-            
+
             // Reset drop 
-            if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                 drops[i] = 0;
             }
             drops[i]++;
