@@ -151,7 +151,6 @@ h1, h2, h3, h4 {
 
 .hero-image-container:hover {
     box-shadow: 0 0 40px rgba(0, 255, 65, 0.6), 0 0 20px rgba(0, 210, 255, 0.3);
-    transform: perspective(1000px) scale(1.05) translateZ(30px) translateY(-5px);
     border-color: var(--electric-blue);
 }
 
@@ -166,7 +165,6 @@ h1, h2, h3, h4 {
 
 .hero-image-container:hover .hero-image {
     filter: grayscale(0%) contrast(100%);
-    transform: scale(1.15);
 }
 
 .glitch {
