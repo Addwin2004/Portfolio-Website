@@ -13,10 +13,147 @@ const GITHUB_USERNAME = 'Addwin2004';
 const API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`;
 
 document.addEventListener('DOMContentLoaded', () => {
+    runTerminalLoader();
     window.observer = initScrollObserver();
     fetchRepositories();
     initMatrixRain();
+    setTimeout(() => {
+        initManualLoopingScroll('.skills-grid');
+        initManualLoopingScroll('.certs-grid'); // Original certifications
+        initManualLoopingScroll('#achievements-track'); // CTFs & Competitions
+    }, 500); // Wait for styles to settle before duplicating
 });
+
+function initManualLoopingScroll(selector) {
+    const grid = document.querySelector(selector);
+    if (!grid) return;
+
+    // Ensure we don't double initialize
+    if (grid.dataset.loopInitialized) return;
+    grid.dataset.loopInitialized = 'true';
+
+    const originalChildren = Array.from(grid.children);
+    if (originalChildren.length === 0) return;
+
+    // We clone elements to create 3 total sets for an infinite loop effect
+    // [Set 1] - [Set 2 (Main)] - [Set 3]
+    originalChildren.forEach(child => {
+        // Strip scroll-reveal classes so elements don't stay permanently hidden if they weren't observed
+        child.classList.remove('scroll-reveal', 'in-view');
+        child.style.opacity = '1';
+        child.style.transform = 'none';
+        
+        const clone = child.cloneNode(true);
+        grid.appendChild(clone);
+    });
+    originalChildren.forEach(child => {
+        const clone = child.cloneNode(true);
+        grid.appendChild(clone);
+    });
+
+    // We need to wait for layout to jump directly to the middle set
+    setTimeout(() => {
+        updateScrollPosition();
+
+        let isScrolling = false;
+        
+        grid.addEventListener('scroll', () => {
+            if (isScrolling) return;
+            
+            const itemWidth = originalChildren[0].offsetWidth;
+            const gap = parseFloat(window.getComputedStyle(grid).gap) || 0;
+            const setWidth = (itemWidth + gap) * originalChildren.length;
+            
+            // If scrolled into the 1st set, jump forward to 2nd set
+            if (grid.scrollLeft < itemWidth) {
+                isScrolling = true;
+                const oldSnap = grid.style.scrollSnapType;
+                grid.style.scrollSnapType = 'none';
+                grid.scrollLeft += setWidth;
+                grid.style.scrollSnapType = oldSnap;
+                setTimeout(() => isScrolling = false, 50);
+            } 
+            // If scrolled into the 3rd set, jump backward to 2nd set
+            else if (grid.scrollLeft > setWidth * 2 - itemWidth) {
+                isScrolling = true;
+                const oldSnap = grid.style.scrollSnapType;
+                grid.style.scrollSnapType = 'none';
+                grid.scrollLeft -= setWidth;
+                grid.style.scrollSnapType = oldSnap;
+                setTimeout(() => isScrolling = false, 50);
+            }
+        });
+
+        function updateScrollPosition() {
+            const itemWidth = originalChildren[0].offsetWidth;
+            const gap = parseFloat(window.getComputedStyle(grid).gap) || 0;
+            const setWidth = (itemWidth + gap) * originalChildren.length;
+            
+            // Set scroll to start of Set 2 initially
+            grid.style.scrollSnapType = 'none';
+            grid.scrollLeft = setWidth;
+            grid.style.scrollSnapType = 'x mandatory';
+        }
+
+        // On window resize, dimensions change
+        window.addEventListener('resize', () => {
+            clearTimeout(grid.resizeTimer);
+            grid.resizeTimer = setTimeout(updateScrollPosition, 200);
+        });
+
+    }, 200);
+}
+
+const loadingSequence = [
+    "SYSTEM BOOT INITIATED...",
+    "ESTABLISHING SECURE CONNECTION TO MAINFRAME...",
+    "BYPASSING SECURITY PROTOCOLS...",
+    "[||||||||||||||||||||] 100% BYPASSED",
+    "ACCESS GRANTED.",
+    "LOADING USER REGISTRY: ADDWIN_ROOT",
+    "INITIALIZING PORTFOLIO INTERFACE...",
+    "SYSTEM READY."
+];
+
+async function runTerminalLoader() {
+    const terminalLoader = document.getElementById('terminal-loader');
+    const terminalContent = document.getElementById('terminal-content');
+    const body = document.body;
+
+    if (!terminalLoader || !terminalContent) return;
+
+    for (let i = 0; i < loadingSequence.length; i++) {
+        await typeLine(loadingSequence[i], terminalContent);
+    }
+
+    setTimeout(() => {
+        terminalLoader.style.opacity = '0';
+        setTimeout(() => {
+            terminalLoader.style.display = 'none';
+            body.classList.remove('loading');
+        }, 800); // Shorter transition out
+    }, 300); // Shorter pause on last text
+}
+
+function typeLine(text, container) {
+    return new Promise(resolve => {
+        let i = 0;
+        const lineElement = document.createElement('div');
+        lineElement.className = 'terminal-line';
+        container.appendChild(lineElement);
+
+        function typeChar() {
+            if (i < text.length) {
+                lineElement.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeChar, Math.random() * 8 + 2); // Extremely fast typing speed
+            } else {
+                setTimeout(resolve, Math.random() * 40 + 20); // Tiny pause between lines
+            }
+        }
+        typeChar();
+    });
+}
 
 function initScrollObserver() {
     const observer = new IntersectionObserver((entries) => {
@@ -31,7 +168,7 @@ function initScrollObserver() {
     }, { threshold: 0.1 });
 
     // Initial load elements
-    const revealElements = document.querySelectorAll('.hero-image-container, .about-section, .timeline-item, .skill-category');
+    const revealElements = document.querySelectorAll('.hero-image-container, .about-section, .timeline-item, .skill-category, .certs-section, .cert-card');
     revealElements.forEach(el => {
         el.classList.add('scroll-reveal');
         observer.observe(el);

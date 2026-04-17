@@ -22,14 +22,77 @@
 }
 
 /* Base Styles */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
     background: radial-gradient(circle at center, #020804 0%, #000 100%);
     color: var(--text-primary);
     font-family: var(--font-body);
     line-height: 1.6;
-    overflow-x: hidden;
     position: relative;
     min-height: 100vh;
+}
+
+body.loading {
+    overflow: hidden;
+}
+
+/* Hacker Terminal Loader */
+#terminal-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--obsidian);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 3rem 2rem;
+    font-family: var(--font-heading);
+    color: var(--matrix-green);
+    transition: opacity 0.8s ease-in-out;
+}
+
+#terminal-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.4);
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-line {
+    margin-bottom: 0.2rem;
+    word-break: break-word;
+}
+
+@media (max-width: 768px) {
+    #terminal-loader {
+        padding: 2rem 1rem;
+    }
+    #terminal-content {
+        font-size: 0.85rem;
+    }
+}
+
+.terminal-cursor {
+    display: inline-block;
+    width: 12px;
+    height: 1.2rem;
+    background-color: var(--matrix-green);
+    animation: blinkCursor 0.8s infinite alternate;
+    margin-top: 0.5rem;
+    box-shadow: 0 0 8px var(--matrix-green);
+}
+
+@keyframes blinkCursor {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
 }
 
 #matrix-bg {
@@ -241,6 +304,7 @@ h1, h2, h3, h4 {
     max-width: 600px;
     margin-bottom: 2rem;
     color: var(--text-secondary);
+    text-align: justify;
 }
 
 .links-container {
@@ -400,6 +464,124 @@ h1, h2, h3, h4 {
     color: var(--text-secondary);
 }
 
+.projects-section {
+    margin-bottom: 5rem;
+}
+
+/* Certifications Section */
+.certs-section {
+    margin-bottom: 4rem;
+}
+
+.scroll-wrapper.certs-blur-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.horizontal-scroll-track.certs-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto; 
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: auto; /* Needed so jump offset is instant */
+    padding: 3rem 5%; /* Accommodates hover scaling and soft edge */
+    gap: 2.5rem;
+    
+    /* Edge blur for certificates */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    
+    /* Hide scrollbar completely */
+    scrollbar-width: none; 
+}
+
+.horizontal-scroll-track.certs-grid::-webkit-scrollbar {
+    display: none;
+}
+
+.cert-card {
+    flex: 0 0 380px; /* Horizontal rectangle */
+    height: 240px;
+    scroll-snap-align: center;
+    background: var(--dark-surface);
+    border: 1px solid rgba(0, 255, 65, 0.1);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s, border-color 0.4s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.cert-card:hover {
+    transform: scale(1.15);
+    box-shadow: 0 20px 40px rgba(0, 255, 65, 0.15), 0 0 20px rgba(0, 210, 255, 0.2);
+    border-color: var(--electric-blue);
+    z-index: 10;
+}
+
+.cert-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+    filter: grayscale(100%) blur(2px);
+    transition: opacity 0.4s, filter 0.4s;
+}
+
+.cert-card:hover .cert-bg-img {
+    opacity: 0.5;
+    filter: grayscale(0%) blur(0px);
+}
+
+.cert-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(5,5,5,0.2) 30%, rgba(5,5,5,0.9) 100%);
+    z-index: 2;
+}
+
+.cert-icon {
+    width: 60px;
+    height: 60px;
+    color: rgba(255, 255, 255, 0.6);
+    transition: transform 0.4s ease, color 0.4s ease;
+    z-index: 3;
+}
+
+.cert-card:hover .cert-icon {
+    transform: translateY(-25px);
+    color: var(--matrix-green);
+}
+
+.cert-name {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    color: white;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.8);
+    position: absolute;
+    bottom: 2.5rem;
+    left: 1rem;
+    right: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    z-index: 3;
+    line-height: 1.4;
+}
+
+.cert-card:hover .cert-name {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* Footer */
 .site-footer {
     margin-top: 5rem;
@@ -490,12 +672,27 @@ h1, h2, h3, h4 {
 }
 
 .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: nowrap;
     gap: 1.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 1.5rem 5% 2rem 5%; /* space for drop shadows & soft edge */
+    
+    /* Edge blur for skills */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    
+    scroll-behavior: auto; /* Required auto for instant seamless looping */
+    scrollbar-width: none;
+}
+.skills-grid::-webkit-scrollbar {
+    display: none;
 }
 
 .skill-category {
+    flex: 0 0 280px; /* Fixed width for the horizontal track */
+    scroll-snap-align: start;
     background: var(--dark-surface);
     border: 1px solid rgba(255, 255, 255, 0.05);
     padding: 1.5rem;
@@ -613,5 +810,23 @@ h1, h2, h3, h4 {
     }
     .projects-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .cert-card {
+        flex: 0 0 85vw; /* Fit neatly inside mobile screens */
+        height: 220px;
+    }
+    
+    .skill-category {
+        flex: 0 0 80vw; /* Perfect width for small devices */
+        padding: 1.2rem;
+    }
+    
+    .skills-grid {
+        padding: 1.5rem 5% 1.5rem 5%; 
+    }
+    
+    .horizontal-scroll-track.certs-grid {
+        padding: 2rem 5%; 
     }
 }

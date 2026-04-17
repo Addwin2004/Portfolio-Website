@@ -18,7 +18,13 @@
     <script src="https://unpkg.com/feather-icons"></script>
 </head>
 
-<body>
+<body class="loading">
+
+    <!-- Hacker Terminal Loader -->
+    <div id="terminal-loader">
+        <div id="terminal-content"></div>
+        <div class="terminal-cursor"></div>
+    </div>
 
     <!-- Subtle scanning overlay line effect -->
     <canvas id="matrix-bg"></canvas>
@@ -70,7 +76,7 @@
                     </div>
 
                     <!-- Resume Download Button -->
-                    <a href="Resume_Internship.pdf" download="Addwin_Antony_Stephen_Resume.pdf" class="btn btn-primary">
+                    <a href="Addwin_Antony_Stephen_Resume.pdf" download="Addwin_Antony_Stephen_Resume.pdf" class="btn btn-primary">
                         <i data-feather="download"></i> Download Resume
                     </a>
                 </section>
@@ -148,6 +154,56 @@
             </div>
         </section>
 
+        <!-- Certifications Section -->
+        <section class="certs-section scroll-reveal">
+            <h3 class="section-title">Certifications</h3>
+            <div class="scroll-wrapper certs-blur-wrapper">
+                <div class="certs-grid horizontal-scroll-track">
+                    <a href="certificates/Accenture_completion_certificate.pdf" target="_blank" class="cert-card">
+                        <img src="certificates/Accenture_completion_certificate.png" alt="Accenture" class="cert-bg-img">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-name">Accenture Completion Certificate</div>
+                    </a>
+                    
+                    <a href="certificates/CertificateOfCompletion_Certified Ethical Hacker CEH.pdf" target="_blank" class="cert-card">
+                        <img src="certificates/CertificateOfCompletion_Certified Ethical Hacker CEH.png" alt="CEH" class="cert-bg-img">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-name">Certified Ethical Hacker CEH</div>
+                    </a>
+                    
+                    <a href="certificates/google foundation of cybersec.jpeg" target="_blank" class="cert-card">
+                        <img src="certificates/google foundation of cybersec.jpeg" alt="Google Cybersec" class="cert-bg-img">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-name">Google Foundation of Cybersecurity</div>
+                    </a>
+                    
+                    <a href="certificates/network architecture.pdf" target="_blank" class="cert-card">
+                        <img src="certificates/network architecture.png" alt="Network" class="cert-bg-img">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-name">Network Architecture</div>
+                    </a>
+                    
+                    <a href="certificates/sql injection.jpg" target="_blank" class="cert-card">
+                        <img src="certificates/sql injection.jpg" alt="SQL Injection" class="cert-bg-img">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-name">SQL Injection</div>
+                    </a>
+                    
+                    <a href="certificates/udemy certificate.pdf" target="_blank" class="cert-card">
+                        <img src="certificates/udemy certificate.png" alt="Udemy" class="cert-bg-img">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-name">Udemy Certificate</div>
+                    </a>
+                    
+                    <a href="certificates/Mastercard_completion_certificate.pdf" target="_blank" class="cert-card">
+                        <img src="certificates/Mastercard_completion_certificate.png" alt="Mastercard" class="cert-bg-img">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-name">Mastercard Completion Certificate</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- Projects dynamically injected here -->
         <main class="projects-section">
             <h3 class="section-title">Projects</h3>
@@ -158,6 +214,32 @@
                 </div>
             </div>
         </main>
+
+        <!-- Competitive Achievements Section -->
+        <section class="certs-section scroll-reveal">
+            <h3 class="section-title">CTFs & Competitions</h3>
+            <div class="scroll-wrapper certs-blur-wrapper">
+                <div id="achievements-track" class="certs-grid horizontal-scroll-track">
+                    <a href="certificates/CREST_ctf.pdf" target="_blank" class="cert-card">
+                        <img src="certificates/CREST_ctf.png" alt="CREST CTF" class="cert-bg-img">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-name">CREST CTF</div>
+                    </a>
+                    
+                    <a href="certificates/ApoorvCTF26.pdf" target="_blank" class="cert-card">
+                        <img src="certificates/ApoorvCTF26.png" alt="Apoorv CTF '26" class="cert-bg-img">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-name">Apoorv CTF '26</div>
+                    </a>
+                    
+                    <a href="certificates/Syntaxia_ctf.pdf" target="_blank" class="cert-card">
+                        <img src="certificates/Syntaxia_ctf.png" alt="Syntaxia CTF" class="cert-bg-img">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-name">Syntaxia CTF</div>
+                    </a>
+                </div>
+            </div>
+        </section>
 
         <footer class="site-footer">
             <p>Initiated by Addwin | Access Granted.</p>
