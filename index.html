@@ -31,11 +31,28 @@
     <div class="scanlines"></div>
     <div class="cyber-grid-bg"></div>
 
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#ctfs">CTFs</a></li>
+            </ul>
+            <div class="hamburger">
+                <i data-feather="menu"></i>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
 
         <div class="top-row">
             <div class="top-content">
-                <header class="hero-section">
+                <header class="hero-section" id="about">
                     <!-- Glitch effect container -->
                     <h1 class="glitch" data-text="Addwin Antony Stephen">Addwin Antony Stephen</h1>
                     <h2 class="subtitle">&lt;Cybersecurity Student /&gt;</h2>
@@ -76,7 +93,8 @@
                     </div>
 
                     <!-- Resume Download Button -->
-                    <a href="Addwin_Antony_Stephen_Resume.pdf" download="Addwin_Antony_Stephen_Resume.pdf" class="btn btn-primary">
+                    <a href="Addwin_Antony_Stephen_Resume.pdf" download="Addwin_Antony_Stephen_Resume.pdf"
+                        class="btn btn-primary">
                         <i data-feather="download"></i> Download Resume
                     </a>
                 </section>
@@ -88,7 +106,7 @@
         </div>
 
         <!-- New Resume Grid Additions -->
-        <section class="resume-grid">
+        <section class="resume-grid" id="experience">
             <div class="resume-col">
                 <h3 class="section-title">Experience</h3>
                 <div class="timeline">
@@ -128,7 +146,7 @@
         </section>
 
         <!-- Skills Section -->
-        <section class="skills-section">
+        <section class="skills-section" id="skills">
             <h3 class="section-title">Arsenal & Skills</h3>
             <div class="skills-grid">
                 <div class="skill-category">
@@ -155,48 +173,53 @@
         </section>
 
         <!-- Certifications Section -->
-        <section class="certs-section scroll-reveal">
+        <section class="certs-section scroll-reveal" id="certifications">
             <h3 class="section-title">Certifications</h3>
             <div class="scroll-wrapper certs-blur-wrapper">
                 <div class="certs-grid horizontal-scroll-track">
                     <a href="certificates/Accenture_completion_certificate.pdf" target="_blank" class="cert-card">
-                        <img src="certificates/Accenture_completion_certificate.png" alt="Accenture" class="cert-bg-img">
+                        <img src="certificates/Accenture_completion_certificate.png" alt="Accenture"
+                            class="cert-bg-img">
                         <div class="cert-overlay"></div>
                         <div class="cert-name">Accenture Completion Certificate</div>
                     </a>
-                    
-                    <a href="certificates/CertificateOfCompletion_Certified Ethical Hacker CEH.pdf" target="_blank" class="cert-card">
-                        <img src="certificates/CertificateOfCompletion_Certified Ethical Hacker CEH.png" alt="CEH" class="cert-bg-img">
+
+                    <a href="certificates/CertificateOfCompletion_Certified Ethical Hacker CEH.pdf" target="_blank"
+                        class="cert-card">
+                        <img src="certificates/CertificateOfCompletion_Certified Ethical Hacker CEH.png" alt="CEH"
+                            class="cert-bg-img">
                         <div class="cert-overlay"></div>
                         <div class="cert-name">Certified Ethical Hacker CEH</div>
                     </a>
-                    
+
                     <a href="certificates/google foundation of cybersec.jpeg" target="_blank" class="cert-card">
-                        <img src="certificates/google foundation of cybersec.jpeg" alt="Google Cybersec" class="cert-bg-img">
+                        <img src="certificates/google foundation of cybersec.jpeg" alt="Google Cybersec"
+                            class="cert-bg-img">
                         <div class="cert-overlay"></div>
                         <div class="cert-name">Google Foundation of Cybersecurity</div>
                     </a>
-                    
+
                     <a href="certificates/network architecture.pdf" target="_blank" class="cert-card">
                         <img src="certificates/network architecture.png" alt="Network" class="cert-bg-img">
                         <div class="cert-overlay"></div>
                         <div class="cert-name">Network Architecture</div>
                     </a>
-                    
+
                     <a href="certificates/sql injection.jpg" target="_blank" class="cert-card">
                         <img src="certificates/sql injection.jpg" alt="SQL Injection" class="cert-bg-img">
                         <div class="cert-overlay"></div>
                         <div class="cert-name">SQL Injection</div>
                     </a>
-                    
+
                     <a href="certificates/udemy certificate.pdf" target="_blank" class="cert-card">
                         <img src="certificates/udemy certificate.png" alt="Udemy" class="cert-bg-img">
                         <div class="cert-overlay"></div>
                         <div class="cert-name">Udemy Certificate</div>
                     </a>
-                    
+
                     <a href="certificates/Mastercard_completion_certificate.pdf" target="_blank" class="cert-card">
-                        <img src="certificates/Mastercard_completion_certificate.png" alt="Mastercard" class="cert-bg-img">
+                        <img src="certificates/Mastercard_completion_certificate.png" alt="Mastercard"
+                            class="cert-bg-img">
                         <div class="cert-overlay"></div>
                         <div class="cert-name">Mastercard Completion Certificate</div>
                     </a>
@@ -205,7 +228,7 @@
         </section>
 
         <!-- Projects dynamically injected here -->
-        <main class="projects-section">
+        <main class="projects-section" id="projects">
             <h3 class="section-title">Projects</h3>
             <div id="projects-grid" class="projects-grid">
                 <!-- Javascript will populate this grid -->
@@ -216,7 +239,7 @@
         </main>
 
         <!-- Competitive Achievements Section -->
-        <section class="certs-section scroll-reveal">
+        <section class="certs-section scroll-reveal" id="ctfs">
             <h3 class="section-title">CTFs & Competitions</h3>
             <div class="scroll-wrapper certs-blur-wrapper">
                 <div id="achievements-track" class="certs-grid horizontal-scroll-track">
@@ -225,17 +248,23 @@
                         <div class="cert-overlay"></div>
                         <div class="cert-name">CREST CTF</div>
                     </a>
-                    
+
                     <a href="certificates/ApoorvCTF26.pdf" target="_blank" class="cert-card">
                         <img src="certificates/ApoorvCTF26.png" alt="Apoorv CTF '26" class="cert-bg-img">
                         <div class="cert-overlay"></div>
                         <div class="cert-name">Apoorv CTF '26</div>
                     </a>
-                    
+
                     <a href="certificates/Syntaxia_ctf.pdf" target="_blank" class="cert-card">
                         <img src="certificates/Syntaxia_ctf.png" alt="Syntaxia CTF" class="cert-bg-img">
                         <div class="cert-overlay"></div>
                         <div class="cert-name">Syntaxia CTF</div>
+                    </a>
+                    
+                    <a href="certificates/HackSphere Hackathon.jpeg" target="_blank" class="cert-card">
+                        <img src="certificates/HackSphere Hackathon.jpeg" alt="HackSphere Hackathon" class="cert-bg-img">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-name">HackSphere Hackathon</div>
                     </a>
                 </div>
             </div>

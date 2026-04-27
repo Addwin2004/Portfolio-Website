@@ -22,7 +22,39 @@ document.addEventListener('DOMContentLoaded', () => {
         initManualLoopingScroll('.certs-grid'); // Original certifications
         initManualLoopingScroll('#achievements-track'); // CTFs & Competitions
     }, 500); // Wait for styles to settle before duplicating
+
+    initNavbar();
 });
+
+function initNavbar() {
+    const navbar = document.querySelector('.navbar');
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const links = document.querySelectorAll('.nav-links li a');
+
+    // Scroll effect
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Mobile Hamburger Menu Toggle
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    }
+
+    // Close mobile menu when a link is clicked
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+        });
+    });
+}
 
 function initManualLoopingScroll(selector) {
     const grid = document.querySelector(selector);
