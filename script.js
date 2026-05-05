@@ -335,8 +335,8 @@ function initMatrixRain() {
         for (let i = 0; i < drops.length; i++) {
             const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
 
-            // Randomly flash white for the lead character
-            ctx.fillStyle = Math.random() > 0.95 ? '#ffffff' : '#00ff41';
+            // Randomly flash white for the lead character, with reduced opacity for a lighter, subtler background
+            ctx.fillStyle = Math.random() > 0.95 ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 255, 65, 0.25)';
 
             ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
