@@ -557,6 +557,11 @@ h1, h2, h3, h4 {
     
     /* Hide scrollbar completely */
     scrollbar-width: none; 
+    
+    /* Hardware acceleration for smoother scrolling */
+    -webkit-overflow-scrolling: touch;
+    will-change: scroll-position;
+    transform: translateZ(0);
 }
 
 .horizontal-scroll-track.certs-grid::-webkit-scrollbar {
@@ -748,6 +753,11 @@ h1, h2, h3, h4 {
     
     scroll-behavior: auto; /* Required auto for instant seamless looping */
     scrollbar-width: none;
+    
+    /* Hardware acceleration for smoother scrolling */
+    -webkit-overflow-scrolling: touch;
+    will-change: scroll-position;
+    transform: translateZ(0);
 }
 .skills-grid::-webkit-scrollbar {
     display: none;

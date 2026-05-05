@@ -85,47 +85,47 @@ function initManualLoopingScroll(selector) {
 
     // We need to wait for layout to jump directly to the middle set
     setTimeout(() => {
-        updateScrollPosition();
-
         let isScrolling = false;
+        let cachedItemWidth = 0;
+        let cachedSetWidth = 0;
+
+        function updateDimensions() {
+            cachedItemWidth = originalChildren[0].offsetWidth;
+            const gap = parseFloat(window.getComputedStyle(grid).gap) || 0;
+            cachedSetWidth = (cachedItemWidth + gap) * originalChildren.length;
+        }
+
+        function updateScrollPosition() {
+            updateDimensions();
+            grid.style.scrollSnapType = 'none';
+            grid.scrollLeft = cachedSetWidth;
+            grid.style.scrollSnapType = 'x mandatory';
+        }
+
+        // Initialize position and dimensions
+        updateScrollPosition();
         
         grid.addEventListener('scroll', () => {
             if (isScrolling) return;
             
-            const itemWidth = originalChildren[0].offsetWidth;
-            const gap = parseFloat(window.getComputedStyle(grid).gap) || 0;
-            const setWidth = (itemWidth + gap) * originalChildren.length;
-            
-            // If scrolled into the 1st set, jump forward to 2nd set
-            if (grid.scrollLeft < itemWidth) {
+            // Use cached values to prevent layout thrashing on scroll
+            if (grid.scrollLeft < cachedItemWidth) {
                 isScrolling = true;
                 const oldSnap = grid.style.scrollSnapType;
                 grid.style.scrollSnapType = 'none';
-                grid.scrollLeft += setWidth;
+                grid.scrollLeft += cachedSetWidth;
                 grid.style.scrollSnapType = oldSnap;
                 setTimeout(() => isScrolling = false, 50);
             } 
-            // If scrolled into the 3rd set, jump backward to 2nd set
-            else if (grid.scrollLeft > setWidth * 2 - itemWidth) {
+            else if (grid.scrollLeft > cachedSetWidth * 2 - cachedItemWidth) {
                 isScrolling = true;
                 const oldSnap = grid.style.scrollSnapType;
                 grid.style.scrollSnapType = 'none';
-                grid.scrollLeft -= setWidth;
+                grid.scrollLeft -= cachedSetWidth;
                 grid.style.scrollSnapType = oldSnap;
                 setTimeout(() => isScrolling = false, 50);
             }
-        });
-
-        function updateScrollPosition() {
-            const itemWidth = originalChildren[0].offsetWidth;
-            const gap = parseFloat(window.getComputedStyle(grid).gap) || 0;
-            const setWidth = (itemWidth + gap) * originalChildren.length;
-            
-            // Set scroll to start of Set 2 initially
-            grid.style.scrollSnapType = 'none';
-            grid.scrollLeft = setWidth;
-            grid.style.scrollSnapType = 'x mandatory';
-        }
+        }, { passive: true });
 
         // On window resize, dimensions change
         window.addEventListener('resize', () => {
