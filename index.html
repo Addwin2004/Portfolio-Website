@@ -63,13 +63,7 @@
                 <section class="about-section">
                     <h3 class="section-title">About Me</h3>
                     <p class="bio">
-                        Detail-oriented MCA – ISMS student with a strong foundation in software development and
-                        cybersecurity.
-                        Experienced in manual testing, vulnerability assessment, and full-stack development. Actively
-                        participates in CTF
-                        competitions to sharpen real-world offensive security skills, with a keen interest in ethical
-                        hacking and AI-powered
-                        security solutions.
+                        Cybersecurity focused MCA Information Security student with hands-on experience in vulnerability assessment, threat analysis, security governance, and secure application development through internships, practical projects, and CTF challenges. Proficient in Python, networking fundamentals, security tools, and frameworks including ISO/IEC 27001 and NIST CSF 2.0.
                     </p>
 
                     <div class="links-container">
@@ -100,7 +94,7 @@
             </div>
 
             <div class="hero-image-container scroll-reveal">
-                <img src="mypic.jpg" alt="Addwin Antony Stephen" class="hero-image">
+                <img src="ai_profile_pic.jpeg" alt="Addwin Antony Stephen" class="hero-image">
             </div>
         </div>
 
@@ -109,6 +103,12 @@
             <div class="resume-col">
                 <h3 class="section-title">Experience</h3>
                 <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="date-badge">June 2026 – July 2026</div>
+                        <h4>Networking & Systems Intern</h4>
+                        <p class="company">Forerun Systems Pvt. Ltd.</p>
+                        <p class="desc">Installed and configured IP cameras, PoE switches, NVRs, and access control systems for client environments. Built and tested desktop systems, diagnosed hardware issues, and performed system validation before delivery.</p>
+                    </div>
                     <div class="timeline-item">
                         <div class="date-badge">May 2025 - Jul 2025</div>
                         <h4>Manual Testing Intern</h4>
@@ -147,27 +147,39 @@
         <!-- Skills Section -->
         <section class="skills-section" id="skills">
             <h3 class="section-title">Arsenal & Skills</h3>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h4><i data-feather="shield"></i> Security Tools</h4>
-                    <p>Nessus, Burp Suite, Nmap, Metasploit, Wireshark</p>
+            <div class="scroll-wrapper skills-blur-wrapper">
+                <button class="scroll-btn prev" aria-label="Scroll Left"><i data-feather="chevron-left"></i></button>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h4><i data-feather="shield"></i> Security Tools</h4>
+                        <p>Burp Suite, Wireshark, Nmap, Nessus, Metasploit, Hydra</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4><i data-feather="code"></i> Programming Languages</h4>
+                        <p>Python, Java, JavaScript, C, C++, PHP</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4><i data-feather="globe"></i> Web Technologies</h4>
+                        <p>HTML, CSS, React.js, Node.js, FastAPI, Flask</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4><i data-feather="lock"></i> Cybersecurity & GRC</h4>
+                        <p>ISO/IEC 27001:2022, NIST CSF 2.0, Vulnerability Assessment, Risk Assessment, Incident Response, Security Governance</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4><i data-feather="database"></i> Databases</h4>
+                        <p>MySQL, Supabase</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4><i data-feather="activity"></i> Networking & Concepts</h4>
+                        <p>TCP/IP, OSI Model, HTTP/HTTPS, DNS, OSINT, Web Application Security, OWASP Top 10, Linux Fundamentals</p>
+                    </div>
+                    <div class="skill-category">
+                        <h4><i data-feather="terminal"></i> Tools</h4>
+                        <p>Excel, Git, GitHub</p>
+                    </div>
                 </div>
-                <div class="skill-category">
-                    <h4><i data-feather="code"></i> Languages</h4>
-                    <p>Python, Java, C, C++, PHP, HTML, CSS, JavaScript</p>
-                </div>
-                <div class="skill-category">
-                    <h4><i data-feather="box"></i> Frameworks</h4>
-                    <p>React.js, Node.js, Flask, BeautifulSoup4, OpenCV</p>
-                </div>
-                <div class="skill-category">
-                    <h4><i data-feather="database"></i> Databases</h4>
-                    <p>MySQL</p>
-                </div>
-                <div class="skill-category">
-                    <h4><i data-feather="cpu"></i> Other</h4>
-                    <p>OSINT, TCP/IP Networking, XAMPP</p>
-                </div>
+                <button class="scroll-btn next" aria-label="Scroll Right"><i data-feather="chevron-right"></i></button>
             </div>
         </section>
 
@@ -175,6 +187,7 @@
         <section class="certs-section scroll-reveal" id="certifications">
             <h3 class="section-title">Certifications</h3>
             <div class="scroll-wrapper certs-blur-wrapper">
+                <button class="scroll-btn prev" aria-label="Scroll Left"><i data-feather="chevron-left"></i></button>
                 <div class="certs-grid horizontal-scroll-track">
                     <a href="certificates/Accenture_completion_certificate.pdf" target="_blank" class="cert-card">
                         <img src="certificates/Accenture_completion_certificate.png" alt="Accenture"
@@ -222,7 +235,22 @@
                         <div class="cert-overlay"></div>
                         <div class="cert-name">Mastercard Completion Certificate</div>
                     </a>
+
+                    <a href="certificates/Fortinet_certificate.pdf" target="_blank" class="cert-card">
+                        <img src="certificates/Fortinet_certificate.png" alt="Fortinet Certificate"
+                            class="cert-bg-img">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-name">Fortinet Certificate</div>
+                    </a>
+
+                    <a href="certificates/splunk Certificate.pdf" target="_blank" class="cert-card">
+                        <img src="certificates/splunk Certificate.png" alt="Splunk Certificate"
+                            class="cert-bg-img">
+                        <div class="cert-overlay"></div>
+                        <div class="cert-name">Splunk Certificate</div>
+                    </a>
                 </div>
+                <button class="scroll-btn next" aria-label="Scroll Right"><i data-feather="chevron-right"></i></button>
             </div>
         </section>
 
@@ -241,6 +269,7 @@
         <section class="certs-section scroll-reveal" id="ctfs">
             <h3 class="section-title">CTFs & Competitions</h3>
             <div class="scroll-wrapper certs-blur-wrapper">
+                <button class="scroll-btn prev" aria-label="Scroll Left"><i data-feather="chevron-left"></i></button>
                 <div id="achievements-track" class="certs-grid horizontal-scroll-track">
                     <a href="certificates/CREST_ctf.pdf" target="_blank" class="cert-card">
                         <img src="certificates/CREST_ctf.png" alt="CREST CTF" class="cert-bg-img">
@@ -266,6 +295,7 @@
                         <div class="cert-name">HackSphere Hackathon</div>
                     </a>
                 </div>
+                <button class="scroll-btn next" aria-label="Scroll Right"><i data-feather="chevron-right"></i></button>
             </div>
         </section>
 

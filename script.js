@@ -64,6 +64,34 @@ function initManualLoopingScroll(selector) {
     if (grid.dataset.loopInitialized) return;
     grid.dataset.loopInitialized = 'true';
 
+    // Set up scroll buttons click listeners if they exist in the parent element
+    const parent = grid.parentElement;
+    if (parent && parent.classList.contains('scroll-wrapper')) {
+        const prevBtn = parent.querySelector('.scroll-btn.prev');
+        const nextBtn = parent.querySelector('.scroll-btn.next');
+        
+        if (prevBtn && nextBtn) {
+            const getScrollAmount = () => {
+                const firstItem = grid.children[0];
+                if (!firstItem) return 300;
+                const itemWidth = firstItem.offsetWidth;
+                const gap = parseFloat(window.getComputedStyle(grid).gap) || 0;
+                const isSkills = grid.classList.contains('skills-grid');
+                return (itemWidth + gap) * (isSkills ? 1 : 2);
+            };
+
+            prevBtn.addEventListener('click', () => {
+                const amount = getScrollAmount();
+                grid.scrollBy({ left: -amount, behavior: 'smooth' });
+            });
+
+            nextBtn.addEventListener('click', () => {
+                const amount = getScrollAmount();
+                grid.scrollBy({ left: amount, behavior: 'smooth' });
+            });
+        }
+    }
+
     const originalChildren = Array.from(grid.children);
     if (originalChildren.length === 0) return;
 
