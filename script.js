@@ -1,301 +1,314 @@
 // List of repository names you wish to hide from the UI
 const excludedProjects = [
-    'Memory-Matching-Game',
-    'Memory - Matching - Game',
-    'CAR-SHOWROOM-WEBSITE',
-    'Addwin2004',
-    'SignUp-and-SignIn-CSS-Web-page',
-    'Portfolio-Website'
+  "Memory-Matching-Game",
+  "Memory - Matching - Game",
+  "CAR-SHOWROOM-WEBSITE",
+  "Addwin2004",
+  "SignUp-and-SignIn-CSS-Web-page",
+  "Portfolio-Website",
+  "Machine-Learning-for-Cybersecurity",
 ];
 
 // Configuration
-const GITHUB_USERNAME = 'Addwin2004';
+const GITHUB_USERNAME = "Addwin2004";
 const API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=100`;
 
-document.addEventListener('DOMContentLoaded', () => {
-    runTerminalLoader();
-    window.observer = initScrollObserver();
-    fetchRepositories();
-    initMatrixRain();
-    setTimeout(() => {
-        initManualLoopingScroll('.skills-grid');
-        initManualLoopingScroll('.certs-grid'); // Original certifications
-        initManualLoopingScroll('#achievements-track'); // CTFs & Competitions
-    }, 500); // Wait for styles to settle before duplicating
+document.addEventListener("DOMContentLoaded", () => {
+  runTerminalLoader();
+  window.observer = initScrollObserver();
+  fetchRepositories();
+  initMatrixRain();
+  setTimeout(() => {
+    initManualLoopingScroll(".skills-grid");
+    initManualLoopingScroll(".certs-grid"); // Original certifications
+    initManualLoopingScroll("#achievements-track"); // CTFs & Competitions
+  }, 500); // Wait for styles to settle before duplicating
 
-    initNavbar();
+  initNavbar();
 });
 
 function initNavbar() {
-    const navbar = document.querySelector('.navbar');
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    const links = document.querySelectorAll('.nav-links li a');
+  const navbar = document.querySelector(".navbar");
+  const hamburger = document.querySelector(".hamburger");
+  const navLinks = document.querySelector(".nav-links");
+  const links = document.querySelectorAll(".nav-links li a");
 
-    // Scroll effect
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    // Mobile Hamburger Menu Toggle
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+  // Scroll effect
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
     }
+  });
 
-    // Close mobile menu when a link is clicked
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-        });
+  // Mobile Hamburger Menu Toggle
+  if (hamburger) {
+    hamburger.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
     });
+  }
+
+  // Close mobile menu when a link is clicked
+  links.forEach((link) => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("active");
+    });
+  });
 }
 
 function initManualLoopingScroll(selector) {
-    const grid = document.querySelector(selector);
-    if (!grid) return;
+  const grid = document.querySelector(selector);
+  if (!grid) return;
 
-    // Ensure we don't double initialize
-    if (grid.dataset.loopInitialized) return;
-    grid.dataset.loopInitialized = 'true';
+  // Ensure we don't double initialize
+  if (grid.dataset.loopInitialized) return;
+  grid.dataset.loopInitialized = "true";
 
-    // Set up scroll buttons click listeners if they exist in the parent element
-    const parent = grid.parentElement;
-    if (parent && parent.classList.contains('scroll-wrapper')) {
-        const prevBtn = parent.querySelector('.scroll-btn.prev');
-        const nextBtn = parent.querySelector('.scroll-btn.next');
-        
-        if (prevBtn && nextBtn) {
-            const getScrollAmount = () => {
-                const firstItem = grid.children[0];
-                if (!firstItem) return 300;
-                const itemWidth = firstItem.offsetWidth;
-                const gap = parseFloat(window.getComputedStyle(grid).gap) || 0;
-                const isSkills = grid.classList.contains('skills-grid');
-                return (itemWidth + gap) * (isSkills ? 1 : 2);
-            };
+  // Set up scroll buttons click listeners if they exist in the parent element
+  const parent = grid.parentElement;
+  if (parent && parent.classList.contains("scroll-wrapper")) {
+    const prevBtn = parent.querySelector(".scroll-btn.prev");
+    const nextBtn = parent.querySelector(".scroll-btn.next");
 
-            prevBtn.addEventListener('click', () => {
-                const amount = getScrollAmount();
-                grid.scrollBy({ left: -amount, behavior: 'smooth' });
-            });
+    if (prevBtn && nextBtn) {
+      const getScrollAmount = () => {
+        const firstItem = grid.children[0];
+        if (!firstItem) return 300;
+        const itemWidth = firstItem.offsetWidth;
+        const gap = parseFloat(window.getComputedStyle(grid).gap) || 0;
+        const isSkills = grid.classList.contains("skills-grid");
+        return (itemWidth + gap) * (isSkills ? 1 : 2);
+      };
 
-            nextBtn.addEventListener('click', () => {
-                const amount = getScrollAmount();
-                grid.scrollBy({ left: amount, behavior: 'smooth' });
-            });
-        }
+      prevBtn.addEventListener("click", () => {
+        const amount = getScrollAmount();
+        grid.scrollBy({ left: -amount, behavior: "smooth" });
+      });
+
+      nextBtn.addEventListener("click", () => {
+        const amount = getScrollAmount();
+        grid.scrollBy({ left: amount, behavior: "smooth" });
+      });
+    }
+  }
+
+  const originalChildren = Array.from(grid.children);
+  if (originalChildren.length === 0) return;
+
+  // We clone elements to create 3 total sets for an infinite loop effect
+  // [Set 1] - [Set 2 (Main)] - [Set 3]
+  originalChildren.forEach((child) => {
+    // Strip scroll-reveal classes so elements don't stay permanently hidden if they weren't observed
+    child.classList.remove("scroll-reveal", "in-view");
+    child.style.opacity = "1";
+    child.style.transform = "none";
+
+    const clone = child.cloneNode(true);
+    grid.appendChild(clone);
+  });
+  originalChildren.forEach((child) => {
+    const clone = child.cloneNode(true);
+    grid.appendChild(clone);
+  });
+
+  // We need to wait for layout to jump directly to the middle set
+  setTimeout(() => {
+    let isScrolling = false;
+    let cachedItemWidth = 0;
+    let cachedSetWidth = 0;
+
+    function updateDimensions() {
+      cachedItemWidth = originalChildren[0].offsetWidth;
+      const gap = parseFloat(window.getComputedStyle(grid).gap) || 0;
+      cachedSetWidth = (cachedItemWidth + gap) * originalChildren.length;
     }
 
-    const originalChildren = Array.from(grid.children);
-    if (originalChildren.length === 0) return;
+    function updateScrollPosition() {
+      updateDimensions();
+      grid.style.scrollSnapType = "none";
+      grid.scrollLeft = cachedSetWidth;
+      grid.style.scrollSnapType = "x mandatory";
+    }
 
-    // We clone elements to create 3 total sets for an infinite loop effect
-    // [Set 1] - [Set 2 (Main)] - [Set 3]
-    originalChildren.forEach(child => {
-        // Strip scroll-reveal classes so elements don't stay permanently hidden if they weren't observed
-        child.classList.remove('scroll-reveal', 'in-view');
-        child.style.opacity = '1';
-        child.style.transform = 'none';
-        
-        const clone = child.cloneNode(true);
-        grid.appendChild(clone);
-    });
-    originalChildren.forEach(child => {
-        const clone = child.cloneNode(true);
-        grid.appendChild(clone);
-    });
+    // Initialize position and dimensions
+    updateScrollPosition();
 
-    // We need to wait for layout to jump directly to the middle set
-    setTimeout(() => {
-        let isScrolling = false;
-        let cachedItemWidth = 0;
-        let cachedSetWidth = 0;
+    grid.addEventListener(
+      "scroll",
+      () => {
+        if (isScrolling) return;
 
-        function updateDimensions() {
-            cachedItemWidth = originalChildren[0].offsetWidth;
-            const gap = parseFloat(window.getComputedStyle(grid).gap) || 0;
-            cachedSetWidth = (cachedItemWidth + gap) * originalChildren.length;
+        // Use cached values to prevent layout thrashing on scroll
+        if (grid.scrollLeft < cachedItemWidth) {
+          isScrolling = true;
+          const oldSnap = grid.style.scrollSnapType;
+          grid.style.scrollSnapType = "none";
+          grid.scrollLeft += cachedSetWidth;
+          grid.style.scrollSnapType = oldSnap;
+          setTimeout(() => (isScrolling = false), 50);
+        } else if (grid.scrollLeft > cachedSetWidth * 2 - cachedItemWidth) {
+          isScrolling = true;
+          const oldSnap = grid.style.scrollSnapType;
+          grid.style.scrollSnapType = "none";
+          grid.scrollLeft -= cachedSetWidth;
+          grid.style.scrollSnapType = oldSnap;
+          setTimeout(() => (isScrolling = false), 50);
         }
+      },
+      { passive: true },
+    );
 
-        function updateScrollPosition() {
-            updateDimensions();
-            grid.style.scrollSnapType = 'none';
-            grid.scrollLeft = cachedSetWidth;
-            grid.style.scrollSnapType = 'x mandatory';
-        }
-
-        // Initialize position and dimensions
-        updateScrollPosition();
-        
-        grid.addEventListener('scroll', () => {
-            if (isScrolling) return;
-            
-            // Use cached values to prevent layout thrashing on scroll
-            if (grid.scrollLeft < cachedItemWidth) {
-                isScrolling = true;
-                const oldSnap = grid.style.scrollSnapType;
-                grid.style.scrollSnapType = 'none';
-                grid.scrollLeft += cachedSetWidth;
-                grid.style.scrollSnapType = oldSnap;
-                setTimeout(() => isScrolling = false, 50);
-            } 
-            else if (grid.scrollLeft > cachedSetWidth * 2 - cachedItemWidth) {
-                isScrolling = true;
-                const oldSnap = grid.style.scrollSnapType;
-                grid.style.scrollSnapType = 'none';
-                grid.scrollLeft -= cachedSetWidth;
-                grid.style.scrollSnapType = oldSnap;
-                setTimeout(() => isScrolling = false, 50);
-            }
-        }, { passive: true });
-
-        // On window resize, dimensions change
-        window.addEventListener('resize', () => {
-            clearTimeout(grid.resizeTimer);
-            grid.resizeTimer = setTimeout(updateScrollPosition, 200);
-        });
-
-    }, 200);
+    // On window resize, dimensions change
+    window.addEventListener("resize", () => {
+      clearTimeout(grid.resizeTimer);
+      grid.resizeTimer = setTimeout(updateScrollPosition, 200);
+    });
+  }, 200);
 }
 
 const loadingSequence = [
-    "SYSTEM BOOT INITIATED...",
-    "ESTABLISHING SECURE CONNECTION TO MAINFRAME...",
-    "BYPASSING SECURITY PROTOCOLS...",
-    "[||||||||||||||||||||] 100% BYPASSED",
-    "ACCESS GRANTED.",
-    "LOADING USER REGISTRY: ADDWIN_ROOT",
-    "INITIALIZING PORTFOLIO INTERFACE...",
-    "SYSTEM READY."
+  "SYSTEM BOOT INITIATED...",
+  "ESTABLISHING SECURE CONNECTION TO MAINFRAME...",
+  "BYPASSING SECURITY PROTOCOLS...",
+  "[||||||||||||||||||||] 100% BYPASSED",
+  "ACCESS GRANTED.",
+  "LOADING USER REGISTRY: ADDWIN_ROOT",
+  "INITIALIZING PORTFOLIO INTERFACE...",
+  "SYSTEM READY.",
 ];
 
 async function runTerminalLoader() {
-    const terminalLoader = document.getElementById('terminal-loader');
-    const terminalContent = document.getElementById('terminal-content');
-    const body = document.body;
+  const terminalLoader = document.getElementById("terminal-loader");
+  const terminalContent = document.getElementById("terminal-content");
+  const body = document.body;
 
-    if (!terminalLoader || !terminalContent) return;
+  if (!terminalLoader || !terminalContent) return;
 
-    for (let i = 0; i < loadingSequence.length; i++) {
-        await typeLine(loadingSequence[i], terminalContent);
-    }
+  for (let i = 0; i < loadingSequence.length; i++) {
+    await typeLine(loadingSequence[i], terminalContent);
+  }
 
+  setTimeout(() => {
+    terminalLoader.style.opacity = "0";
     setTimeout(() => {
-        terminalLoader.style.opacity = '0';
-        setTimeout(() => {
-            terminalLoader.style.display = 'none';
-            body.classList.remove('loading');
-        }, 800); // Shorter transition out
-    }, 300); // Shorter pause on last text
+      terminalLoader.style.display = "none";
+      body.classList.remove("loading");
+    }, 800); // Shorter transition out
+  }, 300); // Shorter pause on last text
 }
 
 function typeLine(text, container) {
-    return new Promise(resolve => {
-        let i = 0;
-        const lineElement = document.createElement('div');
-        lineElement.className = 'terminal-line';
-        container.appendChild(lineElement);
+  return new Promise((resolve) => {
+    let i = 0;
+    const lineElement = document.createElement("div");
+    lineElement.className = "terminal-line";
+    container.appendChild(lineElement);
 
-        function typeChar() {
-            if (i < text.length) {
-                lineElement.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeChar, Math.random() * 8 + 2); // Extremely fast typing speed
-            } else {
-                setTimeout(resolve, Math.random() * 40 + 20); // Tiny pause between lines
-            }
-        }
-        typeChar();
-    });
+    function typeChar() {
+      if (i < text.length) {
+        lineElement.textContent += text.charAt(i);
+        i++;
+        setTimeout(typeChar, Math.random() * 8 + 2); // Extremely fast typing speed
+      } else {
+        setTimeout(resolve, Math.random() * 40 + 20); // Tiny pause between lines
+      }
+    }
+    typeChar();
+  });
 }
 
 function initScrollObserver() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('in-view');
-                observer.unobserve(entry.target);
-                // Clean up classes after animation finishes so hover states resume normally
-                setTimeout(() => entry.target.classList.remove('scroll-reveal', 'in-view'), 800);
-            }
-        });
-    }, { threshold: 0.1 });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+          // Clean up classes after animation finishes so hover states resume normally
+          setTimeout(
+            () => entry.target.classList.remove("scroll-reveal", "in-view"),
+            800,
+          );
+        }
+      });
+    },
+    { threshold: 0.1 },
+  );
 
-    // Initial load elements
-    const revealElements = document.querySelectorAll('.hero-image-container, .about-section, .timeline-item, .skill-category, .certs-section, .cert-card');
-    revealElements.forEach(el => {
-        el.classList.add('scroll-reveal');
-        observer.observe(el);
-    });
+  // Initial load elements
+  const revealElements = document.querySelectorAll(
+    ".hero-image-container, .about-section, .timeline-item, .skill-category, .certs-section, .cert-card",
+  );
+  revealElements.forEach((el) => {
+    el.classList.add("scroll-reveal");
+    observer.observe(el);
+  });
 
-    return observer;
+  return observer;
 }
 
 async function fetchRepositories() {
-    const grid = document.getElementById('projects-grid');
+  const grid = document.getElementById("projects-grid");
 
-    try {
-        const response = await fetch(API_URL);
+  try {
+    const response = await fetch(API_URL);
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
-        const data = await response.json();
+    const data = await response.json();
 
-        // Filter out excluded projects and handle empty state
-        const visibleProjects = data.filter(repo => !excludedProjects.includes(repo.name));
+    // Filter out excluded projects and handle empty state
+    const visibleProjects = data.filter(
+      (repo) => !excludedProjects.includes(repo.name),
+    );
 
-        // Clear loading state
-        grid.innerHTML = '';
+    // Clear loading state
+    grid.innerHTML = "";
 
-        if (visibleProjects.length === 0) {
-            grid.innerHTML = '<p class="loading-state">No public repositories found or all are filtered out.</p>';
-            return;
-        }
+    if (visibleProjects.length === 0) {
+      grid.innerHTML =
+        '<p class="loading-state">No public repositories found or all are filtered out.</p>';
+      return;
+    }
 
-        // Render project cards
-        visibleProjects.forEach(repo => {
-            const card = createProjectCard(repo);
-            card.classList.add('scroll-reveal');
-            grid.appendChild(card);
-            if (window.observer) window.observer.observe(card);
-        });
+    // Render project cards
+    visibleProjects.forEach((repo) => {
+      const card = createProjectCard(repo);
+      card.classList.add("scroll-reveal");
+      grid.appendChild(card);
+      if (window.observer) window.observer.observe(card);
+    });
 
-        // Re-initialize feather icons for the newly injected HTML
-        if (typeof feather !== 'undefined') {
-            feather.replace();
-        }
-
-    } catch (error) {
-        console.error('Error fetching repositories:', error);
-        grid.innerHTML = `
+    // Re-initialize feather icons for the newly injected HTML
+    if (typeof feather !== "undefined") {
+      feather.replace();
+    }
+  } catch (error) {
+    console.error("Error fetching repositories:", error);
+    grid.innerHTML = `
             <div class="loading-state" style="color: var(--cyber-pink);">
                 <i data-feather="alert-triangle"></i>
                 <p>Failed to load repositories. Error: ${error.message}</p>
             </div>
         `;
-        if (typeof feather !== 'undefined') {
-            feather.replace();
-        }
+    if (typeof feather !== "undefined") {
+      feather.replace();
     }
+  }
 }
 
 function createProjectCard(repo) {
-    // Prevent unstyled undefined elements
-    const description = repo.description || 'No description provided.';
-    const language = repo.language || 'Unknown';
+  // Prevent unstyled undefined elements
+  const description = repo.description || "No description provided.";
+  const language = repo.language || "Unknown";
 
-    const div = document.createElement('div');
-    div.className = 'project-card';
+  const div = document.createElement("div");
+  div.className = "project-card";
 
-    div.innerHTML = `
+  div.innerHTML = `
         <h4 class="project-name">
             <i data-feather="folder" style="color: var(--matrix-green); width: 18px; height: 18px;"></i> 
             ${repo.name}
@@ -309,76 +322,80 @@ function createProjectCard(repo) {
         </div>
     `;
 
-    return div;
+  return div;
 }
 
 // Simple loading dots animation inside script (optional if needed dynamically)
-const loadingDots = document.querySelector('.loading-dots');
+const loadingDots = document.querySelector(".loading-dots");
 if (loadingDots) {
-    let dots = 0;
-    setInterval(() => {
-        dots = (dots + 1) % 4;
-        loadingDots.textContent = '.'.repeat(dots);
-    }, 500);
+  let dots = 0;
+  setInterval(() => {
+    dots = (dots + 1) % 4;
+    loadingDots.textContent = ".".repeat(dots);
+  }, 500);
 }
 // Cinematic Matrix Digital Rain Generator
 function initMatrixRain() {
-    const canvas = document.getElementById('matrix-bg');
-    const ctx = canvas.getContext('2d');
+  const canvas = document.getElementById("matrix-bg");
+  const ctx = canvas.getContext("2d");
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-    const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレゲゼデベペオォコソトノホモヨョロゴゾドボポヴッン';
-    const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const nums = '0123456789';
-    const alphabet = katakana + latin + nums;
+  const katakana =
+    "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレゲゼデベペオォコソトノホモヨョロゴゾドボポヴッン";
+  const latin = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const nums = "0123456789";
+  const alphabet = katakana + latin + nums;
 
-    const fontSize = 16;
-    const columns = Math.floor(canvas.width / fontSize) + 1;
+  const fontSize = 16;
+  const columns = Math.floor(canvas.width / fontSize) + 1;
 
-    const drops = [];
-    for (let x = 0; x < columns; x++) {
-        drops[x] = Math.random() * -100; // stagger initial start
-    }
+  const drops = [];
+  for (let x = 0; x < columns; x++) {
+    drops[x] = Math.random() * -100; // stagger initial start
+  }
 
-    // Performance throttler for cinematic feel
-    let lastDrawTime = 0;
-    const fps = 30;
-    const fpsInterval = 1000 / fps;
+  // Performance throttler for cinematic feel
+  let lastDrawTime = 0;
+  const fps = 30;
+  const fpsInterval = 1000 / fps;
 
-    function draw(time) {
-        requestAnimationFrame(draw);
-
-        const elapsed = time - lastDrawTime;
-        if (elapsed < fpsInterval) return;
-        lastDrawTime = time - (elapsed % fpsInterval);
-
-        // Fade effect for trails
-        ctx.fillStyle = 'rgba(5, 5, 5, 0.15)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.font = fontSize + 'px "JetBrains Mono", monospace';
-
-        for (let i = 0; i < drops.length; i++) {
-            const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-
-            // Randomly flash white for the lead character, with reduced opacity for a lighter, subtler background
-            ctx.fillStyle = Math.random() > 0.95 ? 'rgba(255, 255, 255, 0.6)' : 'rgba(0, 255, 65, 0.25)';
-
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-            // Reset drop 
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
-            }
-            drops[i]++;
-        }
-    }
+  function draw(time) {
     requestAnimationFrame(draw);
 
-    window.addEventListener('resize', () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
+    const elapsed = time - lastDrawTime;
+    if (elapsed < fpsInterval) return;
+    lastDrawTime = time - (elapsed % fpsInterval);
+
+    // Fade effect for trails
+    ctx.fillStyle = "rgba(5, 5, 5, 0.15)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.font = fontSize + 'px "JetBrains Mono", monospace';
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+
+      // Randomly flash white for the lead character, with reduced opacity for a lighter, subtler background
+      ctx.fillStyle =
+        Math.random() > 0.95
+          ? "rgba(255, 255, 255, 0.6)"
+          : "rgba(0, 255, 65, 0.25)";
+
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+      // Reset drop
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+  }
+  requestAnimationFrame(draw);
+
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
 }
